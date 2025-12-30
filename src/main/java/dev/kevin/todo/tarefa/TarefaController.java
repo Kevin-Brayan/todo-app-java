@@ -36,5 +36,10 @@ public class TarefaController {
         return tarefaService.editarTarefa(id, tarefaEdit);
     }
 
+    @DeleteMapping("deletar/{id}")
+    public void deletarTarefa(@PathVariable Long id) {
+        tarefaService.deletarTarefa(id);
+    }
+
 
 }
