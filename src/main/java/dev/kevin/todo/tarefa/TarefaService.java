@@ -29,13 +29,14 @@ public class TarefaService {
         return tarefas;
     }
 
-//    public Tarefa editarTarefa(Long id, Tarefa tarefaEdit) {
-//        Optional<Tarefa> tarefa = tarefaRepository.findById(id);
-//
-//        if(tarefa.isPresent()) {
-//            tarefa.
-//        }
-//
-//        return null;
-//    }
+    public Tarefa editarTarefa(Long id, Tarefa tarefaEdit) {
+        Optional<Tarefa> tarefa = tarefaRepository.findById(id);
+
+        if(tarefa.isPresent()) {
+            tarefaEdit.setId(id);
+            tarefaRepository.save(tarefaEdit);
+        }
+
+        return null;
+    }
 }

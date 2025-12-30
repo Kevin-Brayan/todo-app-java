@@ -31,9 +31,10 @@ public class TarefaController {
         return tarefaService.criarTarefa(tarefa);
     }
 
-//    @PutMapping("editar/{id}")
-//    public Tarefa editarTarefa(@PathVariable Long id, @RequestBody Tarefa tarefaEdit) {
-//
-//    }
+    @PutMapping("editar/{id}")
+    public Tarefa editarTarefa(@PathVariable Long id, @RequestBody Tarefa tarefaEdit) {
+        return tarefaService.editarTarefa(id, tarefaEdit);
+    }
+
 
 }
