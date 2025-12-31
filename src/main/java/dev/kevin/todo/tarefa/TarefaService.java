@@ -1,5 +1,6 @@
 package dev.kevin.todo.tarefa;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -47,4 +48,13 @@ public class TarefaService {
             tarefaRepository.deleteById(id);
         }
     }
+
+    @Transactional
+    public void atualizarStatus(Long id, boolean concluida) {
+        Tarefa tarefa = tarefaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+
+        tarefa.setConcluida(concluida);
+    }
+
 }

@@ -18,4 +18,7 @@ public class Tarefa {
 
     @Column
     private String descricao;
+
+    @Column(nullable = false)
+    private boolean concluida;
 }
