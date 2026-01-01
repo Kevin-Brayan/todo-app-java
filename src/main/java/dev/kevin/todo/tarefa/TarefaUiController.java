@@ -53,6 +53,23 @@ public class TarefaUiController {
         return "redirect:/ui/listar";
     }
 
+    @GetMapping("/confDelete/{id}")
+    public String confDelete(@PathVariable Long id, Model model) {
+        Tarefa tarefa = tarefaService.listarPorId(id);
+        if (tarefa != null) {
+            model.addAttribute("tarefa", tarefa);
+            return "deletar-tarefa";
+        } else {
+            return "listar-tarefas";
+        }
+    }
+
+    @PostMapping("deletar/{id}")
+    public String deletar(@PathVariable long id) {
+        tarefaService.deletarTarefa(id);
+        return "redirect:/ui/listar";
+    }
+
     @GetMapping("/concluir/{id}")
     public String concluir(@PathVariable Long id) {
         tarefaService.atualizarStatus(id, true);

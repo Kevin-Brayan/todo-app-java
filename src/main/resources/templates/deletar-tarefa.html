@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Deletar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body>
+<div class="container mt-4 d-flex flex-column align-items-center">
+    <div style="width: 800px;">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="text-danger fw-bold">
+                    Tem certeza que deseja deletar esta tarefa?
+                </h4>
+
+                <div class="d-flex gap-2">
+                    <form th:action="@{/ui/deletar/{id}(id=${tarefa.id})}" method="post" class="m-0">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi-trash-fill"></i> Deletar
+                        </button>
+                    </form>
+
+                    <button class="btn btn-primary" onclick="history.go(-1)">
+                        <i class="bi-x-lg"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h5><strong>Descricao da tarefa:</strong></h5>
+                <p th:text="${tarefa.descricao}"></p>
+                <br>
+                <h5><strong>Status da tarefa:</strong></h5>
+                <p th:if="!${tarefa.concluida}" style="color: red;">Pendente</p>
+                <p th:if="${tarefa.concluida}" style="color: green;">Concluída</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- BootStrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
