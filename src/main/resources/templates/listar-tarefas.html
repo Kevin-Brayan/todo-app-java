@@ -15,7 +15,7 @@
             <h3>Lista de Tarefas
 
                 <div class="d-flex gap-2 float-end">
-                    <a th:href="@{cadastrar}" class="btn btn-primary"><i class="bi-plus-square"></i> Nova tarefa</a>
+                    <a th:href="@{criar}" class="btn btn-primary"><i class="bi-plus-square"></i> Nova tarefa</a>
                 </div>
             </h3>
         </div>
@@ -24,13 +24,13 @@
                 <thead>
                 <tr>
                     <th>Tarefa</th>
-                    <th>Ações</th>
+                    <th class="text-nowrap" style="width: 1%;">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="tarefa: ${tarefas}">
                     <td th:text="${tarefa.descricao}" th:classappend="${tarefa.concluida} ? 'text-decoration-line-through text-muted'"></td>
-                    <td>
+                    <td class="text-nowrap" style="width: 1%;">
                         <div class="d-flex gap-2">
                             <a th:href="@{editar/{id}(id=${tarefa.id})}" class="btn btn-dark">
                                 <i class="bi-pencil-fill"></i> Editar

@@ -2,9 +2,7 @@ package dev.kevin.todo.tarefa;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +14,18 @@ public class TarefaUiController {
 
     public TarefaUiController(TarefaService tarefaService) {
         this.tarefaService = tarefaService;
+    }
+
+    @GetMapping("criar")
+    public String criarTarefa(Model model) {
+        model.addAttribute("tarefa", new Tarefa());
+        return "criar-tarefa";
+    }
+
+    @PostMapping("salvar")
+    public String salvarTarefa(@ModelAttribute Tarefa tarefa) {
+        tarefaService.criarTarefa(tarefa);
+        return "redirect:/ui/listar";
     }
 
     @GetMapping("listar")
