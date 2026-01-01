@@ -16,6 +16,14 @@ public class TarefaUiController {
         this.tarefaService = tarefaService;
     }
 
+    @GetMapping("listar")
+    public String listarTarefas(Model model) {
+        List<Tarefa> tarefas = tarefaService.listarTarefas();
+        model.addAttribute("tarefas", tarefas);
+
+        return "listar-tarefas";
+    }
+
     @GetMapping("criar")
     public String criarTarefa(Model model) {
         model.addAttribute("tarefa", new Tarefa());
@@ -28,12 +36,21 @@ public class TarefaUiController {
         return "redirect:/ui/listar";
     }
 
-    @GetMapping("listar")
-    public String listarTarefas(Model model) {
-        List<Tarefa> tarefas = tarefaService.listarTarefas();
-        model.addAttribute("tarefas", tarefas);
+    @GetMapping("/editar/{id}")
+    public String editarTarefa(@PathVariable Long id, Model model) {
+        Tarefa tarefa = tarefaService.listarPorId(id);
+        if (tarefa != null) {
+            model.addAttribute("tarefa", tarefa);
+            return "editar-tarefa";
+        } else {
+            return "listar-tarefas";
+        }
+    }
 
-        return "listar-tarefas";
+    @PostMapping("/alterar/{id}")
+    public String alterarTarefa(@PathVariable Long id, @ModelAttribute Tarefa tarefa) {
+        tarefaService.editarTarefa(id, tarefa);
+        return "redirect:/ui/listar";
     }
 
     @GetMapping("/concluir/{id}")

@@ -30,6 +30,14 @@ public class TarefaService {
         return tarefas;
     }
 
+//    Listar por id
+    public Tarefa listarPorId(Long id) {
+        Optional<Tarefa> tarefa = tarefaRepository.findById(id);
+        return tarefa.orElse(null);
+    }
+
+
+//    Editar tarefa
     public Tarefa editarTarefa(Long id, Tarefa tarefaEdit) {
         Optional<Tarefa> tarefa = tarefaRepository.findById(id);
 
@@ -41,6 +49,7 @@ public class TarefaService {
         return null;
     }
 
+//    Deletar tarefa
     public void deletarTarefa(Long id) {
         Optional<Tarefa> tarefa = tarefaRepository.findById(id);
 
@@ -49,6 +58,7 @@ public class TarefaService {
         }
     }
 
+//    Marcar como concluída
     @Transactional
     public void atualizarStatus(Long id, boolean concluida) {
         Tarefa tarefa = tarefaRepository.findById(id)
