@@ -1,5 +1,8 @@
 package dev.kevin.todo.tarefa;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class TarefaMapper {
     public Tarefa map(TarefaDTO tarefaDTO) {
         Tarefa tarefa = new Tarefa();

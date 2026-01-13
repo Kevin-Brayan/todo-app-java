@@ -18,7 +18,7 @@ public class TarefaUiController {
 
     @GetMapping("listar")
     public String listarTarefas(Model model) {
-        List<Tarefa> tarefas = tarefaService.listarTarefas();
+        List<TarefaDTO> tarefas = tarefaService.listarTarefas();
         model.addAttribute("tarefas", tarefas);
 
         return "listar-tarefas";
@@ -31,14 +31,14 @@ public class TarefaUiController {
     }
 
     @PostMapping("salvar")
-    public String salvarTarefa(@ModelAttribute Tarefa tarefa) {
-        tarefaService.criarTarefa(tarefa);
+    public String salvarTarefa(@ModelAttribute TarefaDTO tarefaDTO) {
+        tarefaService.criarTarefa(tarefaDTO);
         return "redirect:/ui/listar";
     }
 
     @GetMapping("/editar/{id}")
     public String editarTarefa(@PathVariable Long id, Model model) {
-        Tarefa tarefa = tarefaService.listarPorId(id);
+        TarefaDTO tarefa = tarefaService.listarPorId(id);
         if (tarefa != null) {
             model.addAttribute("tarefa", tarefa);
             return "editar-tarefa";
@@ -48,14 +48,14 @@ public class TarefaUiController {
     }
 
     @PostMapping("/alterar/{id}")
-    public String alterarTarefa(@PathVariable Long id, @ModelAttribute Tarefa tarefa) {
+    public String alterarTarefa(@PathVariable Long id, @ModelAttribute TarefaDTO tarefa) {
         tarefaService.editarTarefa(id, tarefa);
         return "redirect:/ui/listar";
     }
 
     @GetMapping("/confDelete/{id}")
     public String confDelete(@PathVariable Long id, Model model) {
-        Tarefa tarefa = tarefaService.listarPorId(id);
+        TarefaDTO tarefa = tarefaService.listarPorId(id);
         if (tarefa != null) {
             model.addAttribute("tarefa", tarefa);
             return "deletar-tarefa";

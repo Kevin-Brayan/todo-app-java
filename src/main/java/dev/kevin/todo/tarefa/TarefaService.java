@@ -6,44 +6,53 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TarefaService {
 
     private final TarefaRepository tarefaRepository;
+    private final TarefaMapper tarefaMapper;
 
-    public TarefaService(TarefaRepository tarefaRepository) {
+    public TarefaService(TarefaRepository tarefaRepository, TarefaMapper tarefaMapper) {
         this.tarefaRepository = tarefaRepository;
+        this.tarefaMapper = tarefaMapper;
     }
 
-
-//    Criar tarefa
-    public Tarefa criarTarefa(Tarefa tarefa) {
-        return tarefaRepository.save(tarefa);
+    //    Criar tarefa
+    public TarefaDTO criarTarefa(TarefaDTO tarefaDTO) {
+        Tarefa tarefa = tarefaMapper.map(tarefaDTO);
+        tarefaRepository.save(tarefa);
+        return tarefaMapper.map(tarefa);
     }
 
 //    Listar tarefas
-    public List<Tarefa> listarTarefas() {
-        List<Tarefa> tarefas = new ArrayList<>();
-        tarefas.addAll(tarefaRepository.findAll());
+    public List<TarefaDTO> listarTarefas() {
+        List<Tarefa> tarefas = tarefaRepository.findAll();
 
-        return tarefas;
+        return tarefas.stream()
+                .map(tarefaMapper::map)
+                .collect(Collectors.toList());
+
     }
 
 //    Listar por id
-    public Tarefa listarPorId(Long id) {
+    public TarefaDTO listarPorId(Long id) {
         Optional<Tarefa> tarefa = tarefaRepository.findById(id);
-        return tarefa.orElse(null);
+        return tarefa.map(tarefaMapper::map).orElse(null);
     }
 
 
 //    Editar tarefa
-    public Tarefa editarTarefa(Long id, Tarefa tarefaEdit) {
+    public TarefaDTO editarTarefa(Long id, TarefaDTO tarefaDTO) {
         Optional<Tarefa> tarefa = tarefaRepository.findById(id);
 
         if(tarefa.isPresent()) {
+            Tarefa tarefaEdit = tarefaMapper.map(tarefaDTO);
             tarefaEdit.setId(id);
             tarefaRepository.save(tarefaEdit);
+
+            return tarefaMapper.map(tarefaEdit);
         }
 
         return null;

@@ -22,17 +22,17 @@ public class TarefaController {
     }
 
     @GetMapping("listar")
-    public List<Tarefa> listarTarefas() {
+    public List<TarefaDTO> listarTarefas() {
         return tarefaService.listarTarefas();
     }
 
     @PostMapping("criar")
-    public Tarefa criarTarefa(@RequestBody Tarefa tarefa) {
-        return tarefaService.criarTarefa(tarefa);
+    public TarefaDTO criarTarefa(@RequestBody TarefaDTO tarefaDTO) {
+        return tarefaService.criarTarefa(tarefaDTO);
     }
 
     @PutMapping("editar/{id}")
-    public Tarefa editarTarefa(@PathVariable Long id, @RequestBody Tarefa tarefaEdit) {
+    public TarefaDTO editarTarefa(@PathVariable Long id, @RequestBody TarefaDTO tarefaEdit) {
         return tarefaService.editarTarefa(id, tarefaEdit);
     }
 
